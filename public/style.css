@@ -1,0 +1,84 @@
+/* Estilos básicos */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  background-color: #f0f8ff;
+}
+
+.container {
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+}
+
+h1 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Estilo para todas las pantallas */
+.screen {
+  display: none; /* Oculta todas las pantallas por defecto */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Solo la pantalla activa se muestra */
+.screen.active {
+  display: block;
+}
+
+/* Botón Crear Sala en color verde vibrante */
+#create-room-btn {
+  background-color: #00c853; /* Verde */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+#join-room-btn {
+  background-color: #d500f9; /* Morado */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-top: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Centrar y subrayar la palabra en la pantalla de juego */
+.centered-word {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ff1744; /* Rojo */
+  text-align: center;
+  text-decoration: underline;
+  margin: 20px 0;
+}

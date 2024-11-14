@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fake Artist</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+
+    <!-- Pantalla de Inicio -->
+    <div id="home-screen" class="screen active">
+      <h1>FAKE ARTIST</h1>
+      <button id="create-room-btn" onclick="goToCreateRoom()">Crear Sala</button>
+      <button id="join-room-btn" onclick="goToJoinRoom()">Unirse a Sala</button>
+    </div>
+
+    <!-- Pantalla de Crear Sala -->
+    <div id="create-room-screen" class="screen">
+      <h2>Código de Sala: <span id="new-room-code">-</span></h2>
+      <input type="text" id="create-name" placeholder="Tu nombre">
+      <button onclick="registerInRoom()">Registrarse en Sala</button>
+      <button onclick="goHome()">Volver</button>
+    </div>
+
+    <!-- Pantalla de Unirse a Sala -->
+    <div id="join-room-screen" class="screen">
+      <input type="text" id="join-code" placeholder="Código de sala">
+      <input type="text" id="join-name" placeholder="Tu nombre">
+      <button onclick="joinRoom()">Unirse a Sala</button>
+      <button onclick="goHome()">Volver</button>
+    </div>
+
+    <!-- Pantalla de Lobby -->
+    <div id="lobby-screen" class="screen">
+      <h2>Código de Sala: <span id="room-code"></span></h2>
+      <p>Jugadores conectados:</p>
+      <ul id="players-list"></ul>
+      <button onclick="startGame()" id="start-btn" disabled>Comenzar Juego</button>
+    </div>
+
+    <!-- Pantalla de Dibujo / Juego -->
+    <div id="draw-screen" class="screen">
+      <h2>Turno de: <span id="current-player"></span></h2>
+      <p id="role-message"></p>
+      <!-- Colocamos la palabra en el centro y subrayada para que resalte -->
+      <p id="word-message" class="centered-word"></p>
+      <canvas id="drawing-canvas" width="400" height="400"></canvas>
+      <button onclick="endTurn()">Fin del Turno</button>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
