@@ -92,7 +92,8 @@ io.on("connection", (socket) => {
     });
 });
 
-// Inicia el servidor en el puerto 3000
-server.listen(3000, () => {
-    console.log("Servidor ejecutándose en http://localhost:3000");
+const PORT = process.env.PORT || 3000; // Usar el puerto que Render asigna
+server.listen(PORT, () => {
+    console.log(`Servidor ejecutándose en el puerto ${PORT}`);
 });
+
