@@ -1,4 +1,4 @@
-const socket = io();
+const socket = io("https://fakeartist-qpuk.onrender.com");
 
 window.onload = function() {
     changeScreen("home");
