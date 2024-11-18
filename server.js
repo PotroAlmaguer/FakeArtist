@@ -5,7 +5,12 @@ const { Server } = require("socket.io");
 
 const app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+        origin: "*", // Permitir todas las solicitudes, o especifica la URL del front-end
+        methods: ["GET", "POST"]
+    }
+});
 
 // Sirve archivos estáticos desde la carpeta "public"
 app.use(express.static("public"));
@@ -33,8 +38,7 @@ io.on("connection", (socket) => {
     // Crear una nueva sala
     socket.on("createRoom", (callback) => {
         const roomCode = Math.random().toString(36).slice(2, 6).toUpperCase();
-        rooms[roomCode] = { players: [], fakeArtist: null, turn: 0 };
-        socket.join(roomCode);
+        console.log(`Sala creada con código: ${roomCode}`);
         callback(roomCode);
     });
 
