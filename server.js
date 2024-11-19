@@ -63,6 +63,7 @@ io.on("connection", (socket) => {
         } else {
             console.log("Sala no encontrada:", roomCode);
             callback(false); // Sala no encontrada
+        }
     });
     
     // Iniciar el juego
