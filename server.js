@@ -44,16 +44,25 @@ io.on("connection", (socket) => {
 
     // Unirse a una sala existente
     socket.on("joinRoom", (roomCode, playerName, callback) => {
-        if (rooms[roomCode]) {
-            rooms[roomCode].players.push({ id: socket.id, name: playerName });
-            socket.join(roomCode);
+        if (rooms[roomCode]) { // Verifica que la sala exista
+            const playerExists = rooms[roomCode].players.some(
+                (player) => player.id === socket.id
+            );
+
+            if (!playerExists) {
+                rooms[roomCode].players.push({ id: socket.id, name: playerName });
+                socket.join(roomCode);
             
             // Emitir la actualización de la lista de jugadores a todos en la sala
             io.in(roomCode).emit("updatePlayers", rooms[roomCode].players);
-            callback(true);
+            callback(true); // Respuesta de exito
         } else {
-            callback(false);
+            console.log("El jugador ya esta en la sala.");
+            callback(false); // Jugador ya en la sala
         }
+        } else {
+            console.log("Sala no encontrada:", roomCode);
+            callback(false); // Sala no encontrada
     });
     
     // Iniciar el juego
