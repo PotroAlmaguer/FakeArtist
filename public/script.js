@@ -26,6 +26,17 @@ function goHome() {
 function registerInRoom() {
     const playerName = document.getElementById("create-name").value;
     const roomCode = document.getElementById("new-room-code").innerText;
+
+    if (!playerName) {
+        alert("Por favor, ingresa tu nombre.");
+        return;
+    }
+
+    if (!roomCode) {
+        alert("No se encontró el código de sala.");
+        return;
+    }
+    // Emitir el evento al servidor
     socket.emit("joinRoom", roomCode, playerName, (success) => {
         if (success) {
             document.getElementById("room-code").innerText = roomCode;
