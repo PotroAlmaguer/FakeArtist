@@ -38,13 +38,16 @@ io.on("connection", (socket) => {
     // Crear una nueva sala
     socket.on("createRoom", (callback) => {
         const roomCode = Math.random().toString(36).slice(2, 6).toUpperCase();
-        console.log(`Sala creada con código: ${roomCode}`);
+        rooms[roomCode] = { players: [], fakeArtist: null, turn: 0 };
+        console.log("Sala creada:", roomCode, "Estado actual de rooms:", rooms); // Log para depurar
+        socket.join(roomCode);
         callback(roomCode);
     });
 
     // Unirse a una sala existente
     socket.on("joinRoom", (roomCode, playerName, callback) => {
         console.log("Evento joinRoom recibido. Código de sala:", roomCode, "Nombre del jugador:", playerName);
+        console.log("Estado actual de rooms:", rooms); // Log para inspeccionar las salas
 
         // Verificar si la sala existe
         if (rooms[roomCode]) { 
