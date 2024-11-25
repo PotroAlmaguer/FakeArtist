@@ -44,27 +44,31 @@ io.on("connection", (socket) => {
 
     // Unirse a una sala existente
     socket.on("joinRoom", (roomCode, playerName, callback) => {
-        if (rooms[roomCode]) { // Verifica que la sala exista
-            const playerExists = rooms[roomCode].players.some(
-                (player) => player.id === socket.id
-            );
+        console.log("Evento joinRoom recibido. Código de sala:", roomCode, "Nombre del jugador:", playerName);
 
-            if (!playerExists) {
-                rooms[roomCode].players.push({ id: socket.id, name: playerName });
-                socket.join(roomCode);
-            
-            // Emitir la actualización de la lista de jugadores a todos en la sala
-            io.in(roomCode).emit("updatePlayers", rooms[roomCode].players);
-            callback(true); // Respuesta de exito
+        // Verificar si la sala existe
+        if (rooms[roomCode]) { 
+            const room = rooms[roomCode];
+               // Verificar si el jugador ya está en la sala
+            const playerExists = room.players.some(player => player.id === socket.id);
+        if (!playerExists) {
+            // Agregar el jugador a la sala
+            room.players.push({ id: socket.id, name: playerName });
+            socket.join(roomCode);
+
+            // Emitir lista actualizada de jugadores
+            io.in(roomCode).emit("updatePlayers", room.players);
+            console.log("Jugador añadido:", playerName, "a la sala:", roomCode);
+            callback(true); // Respuesta de éxito
         } else {
-            console.log("El jugador ya esta en la sala.");
-            callback(false); // Jugador ya en la sala
+            console.warn("El jugador ya está en la sala.");
+            callback(false); // Jugador ya registrado
         }
-        } else {
-            console.log("Sala no encontrada:", roomCode);
-            callback(false); // Sala no encontrada
-        }
-    });
+    } else {
+        console.error("Sala no encontrada:", roomCode);
+        callback(false); // Sala no encontrada
+    }
+});
     
     // Iniciar el juego
     socket.on("startGame", (roomCode) => {
