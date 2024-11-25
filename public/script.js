@@ -27,21 +27,25 @@ function registerInRoom() {
     const playerName = document.getElementById("create-name").value;
     const roomCode = document.getElementById("new-room-code").innerText;
 
+    // Validaciones basicas
     if (!playerName) {
         alert("Por favor, ingresa tu nombre.");
         return;
     }
-
     if (!roomCode) {
         alert("No se encontró el código de sala.");
         return;
     }
+    
     // Emitir el evento al servidor
+    console.log("Intentando unirse a la sala:", roomCode, "con nombre:", playerName);
     socket.emit("joinRoom", roomCode, playerName, (success) => {
         if (success) {
+            console.log("Registro exitoso en la sala.");
             document.getElementById("room-code").innerText = roomCode;
             changeScreen("lobby");
         } else {
+            console.error("Error al registrarse en la sala.");
             alert("Error al registrarse en la sala.");
         }
     });
